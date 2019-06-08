@@ -14,3 +14,11 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::group(['prefix' => 'products', 'as' => 'products.'], function (){
+    Route::get('/','ProductsController@index')->name('index');
+    Route::post('/','ProductsController@store')->name('store');
+    Route::get('/create','ProductsController@create')->name('create');
+    Route::get('/{id}','ProductsController@show')->name('show')->where('id','\d+');
+});
