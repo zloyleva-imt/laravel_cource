@@ -33,6 +33,7 @@ services:
 
   db:
     image: mysql/mysql-server:5.7
+    restart: unless-stopped
     ports:
       - "3306:3306"
     volumes:
