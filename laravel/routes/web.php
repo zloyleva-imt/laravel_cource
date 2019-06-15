@@ -25,3 +25,5 @@ Route::group(['prefix' => 'products', 'as' => 'products.'], function (){
     Route::post('/{id}', 'ProductsController@update')->name('update')->where('id','\d+');
     Route::delete('/{id}', 'ProductsController@destroy')->name('destroy')->where('id','\d+');
 });
+
+Route::resource('/categories', 'CategoryController');
