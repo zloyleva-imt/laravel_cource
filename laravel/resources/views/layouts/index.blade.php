@@ -11,7 +11,9 @@
 </head>
 <body>
 
-    <div id="app" class="container">
+    @include('layouts.header')
+
+    <div id="app" class="container py-2">
         @yield('content')
     </div>
 
