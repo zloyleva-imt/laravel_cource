@@ -4,6 +4,10 @@
 
     <div class="row">
 
+        <div class="col-12">
+            <a href="{{ route('products.create') }}" class="btn btn-success">Create</a>
+        </div>
+
         @foreach($products as $product)
             <div class="col-6 my-2">
                 <div class="card">
@@ -12,8 +16,16 @@
                         <p class="card-text">
                             {{ $product->description }}
                         </p>
-                        <a href="{{ route('products.index') . '/' . $product->id }}" class="btn btn-primary">Show more</a>
-                    </div>
+                        <div class="d-flex justify-content-end">
+                            <a href="{{ route('products.show',['id' => $product->id]) }}" class="btn btn-primary mr-2">Show more</a>
+                            <a href="{{ route('products.edit',['id' => $product->id]) }}" class="btn btn-warning mr-2">Edit</a>
+                            <form action="{{ route('products.destroy', ['id' => $product->id]) }}" method="post">
+                                <input type="hidden" name="_method" value="DELETE">
+                                @csrf
+                                <button class="btn btn-danger">Delete</button>
+                            </form>
+                        </div>
+                        </div>
                 </div>
             </div>
         @endforeach
