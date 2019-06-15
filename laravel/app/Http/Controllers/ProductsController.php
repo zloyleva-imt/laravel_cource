@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
@@ -26,60 +27,53 @@ class ProductsController extends Controller
         return view('products.show', ['product' => Product::findOrFail($id)]);
     }
 
-    public function create(){
+    /**
+     * @return View
+     */
+    public function create(): View
+    {
         return view('products.create');
     }
 
-    public function edit($id){
+    /**
+     * @param $id
+     * @return View
+     */
+    public function edit($id): View
+    {
         return view('products.edit', ['product' => Product::findOrFail($id)]);
     }
 
     /**
      * @param Request $request
-     * @return string
+     * @return RedirectResponse
      */
-    public function store(Request $request){
-
+    public function store(Request $request): RedirectResponse
+    {
         $product = new Product();
 
-        $product->name = $request->name;
-        $product->sku = $request->sku;
-        $product->slug = Str::slug($request->name);
-        $product->description = $request->description;
-        $product->price_user = $request->price_user;
-        $product->price_3_opt = $request->price_3_opt;
-        $product->price_8_opt = $request->price_8_opt;
-        $product->price_dealer = $request->price_dealer;
-        $product->price_vip = $request->price_vip;
-        $product->category_id = $request->category_id;
-        $product->stock = $request->stock;
-
-        $product->save();
+        $product->create(array_merge($request->all(), ['slug' => Str::slug($request->name)]));
         return redirect()->route('products.index');
     }
 
-
-    public function update($id,Request $request){
+    /**
+     * @param $id
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function update($id,Request $request): RedirectResponse
+    {
         $product = Product::findOrFail($id);
-
-        $product->name = $request->name;
-        $product->sku = $request->sku;
-        $product->slug = Str::slug($request->name);
-        $product->description = $request->description;
-        $product->price_user = $request->price_user;
-        $product->price_3_opt = $request->price_3_opt;
-        $product->price_8_opt = $request->price_8_opt;
-        $product->price_dealer = $request->price_dealer;
-        $product->price_vip = $request->price_vip;
-        $product->category_id = $request->category_id;
-        $product->stock = $request->stock;
-
-        $product->save();
+        $product->update(array_merge($request->all(), ['slug' => Str::slug($request->name)]));
         return redirect()->route('products.index');
     }
 
-
-    public function destroy($id){
+    /**
+     * @param $id
+     * @return RedirectResponse
+     */
+    public function destroy($id): RedirectResponse
+    {
         Product::findOrFail($id)->delete();
         return redirect()->route('products.index');
     }
