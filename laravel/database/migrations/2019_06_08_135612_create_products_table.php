@@ -29,6 +29,7 @@ class CreateProductsTable extends Migration
 
             $table->unsignedInteger('category_id');
             $table->unsignedInteger('stock');
+            $table->boolean('sale')->default(false);
             $table->boolean('feature')->default(false);
 
             $table->unsignedInteger('views')->default(0);

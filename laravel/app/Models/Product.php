@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Product extends Model
 {
@@ -18,7 +19,26 @@ class Product extends Model
         "price_vip",
         "category_id",
         "stock",
+        "sale"
     ];
+
+    protected $casts = [
+        'sale' => 'boolean'
+    ];
+
+    public function getNameAttribute($value){
+        return ucfirst($value);
+    }
+
+    public function getFullAmountPriceAttribute(){
+        return $this->stock * $this->price_vip;
+    }
+
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = $value;
+        $this->attributes['slug'] = Str::slug($value);
+    }
 
 //    protected $guarded = [
 //
