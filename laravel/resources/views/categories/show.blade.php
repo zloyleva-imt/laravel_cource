@@ -21,4 +21,12 @@
 
     </div>
 
+    <div class="row">
+
+        @foreach($category->products as $product)
+            <div class="col-12"><a href="{{ route('products.show', ['id' => $product->id]) }}">{{ $product->name }}</a></div>
+        @endforeach
+
+    </div>
+
 @endsection

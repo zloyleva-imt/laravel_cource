@@ -23,7 +23,8 @@ class Product extends Model
     ];
 
     protected $with = [
-        'picture'
+        'picture',
+        'category',
     ];
 
     protected $casts = [
@@ -46,6 +47,10 @@ class Product extends Model
 
     public function picture(){
         return $this->hasOne(Picture::class);
+    }
+
+    public function category(){
+        return $this->belongsTo(Category::class)->without('products');
     }
 
 //    protected $guarded = [

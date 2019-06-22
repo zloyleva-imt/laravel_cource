@@ -18,6 +18,11 @@
         </dl>
 
         <dl class="col-12 my-2">
+            <dt class="col-sm-3">Category</dt>
+            <dd class="col-sm-9"><a href="{{ route('categories.show', ['slug' => $product->category['slug']]) }}">{{ $product->category['name'] }}</a></dd>
+        </dl>
+
+        <dl class="col-12 my-2">
             <dt class="col-sm-3">SKU</dt>
             <dd class="col-sm-9">{{ $product->sku }}</dd>
         </dl>

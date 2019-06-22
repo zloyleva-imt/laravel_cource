@@ -24,7 +24,6 @@ class ProductsController extends Controller
      */
     public function show(Product $product)
     {
-//        dd($product);
         return view('products.show', ['product' => $product]);
     }
 
