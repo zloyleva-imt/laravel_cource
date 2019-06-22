@@ -10,6 +10,7 @@
         <form class="col-12 my-2" method="post" action="{{ route('products.update',['id' => $product->id]) }}">
 
             @csrf
+            <input type="hidden" name="_method" value="PUT">
 
             <div class="form-group">
                 <label for="name">Name</label>
