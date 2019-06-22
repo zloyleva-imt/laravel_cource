@@ -22,6 +22,10 @@ class Product extends Model
         "sale"
     ];
 
+    protected $with = [
+        'picture'
+    ];
+
     protected $casts = [
         'sale' => 'boolean'
     ];
@@ -38,6 +42,10 @@ class Product extends Model
     {
         $this->attributes['name'] = $value;
         $this->attributes['slug'] = Str::slug($value);
+    }
+
+    public function picture(){
+        return $this->hasOne(Picture::class);
     }
 
 //    protected $guarded = [
