@@ -17,9 +17,9 @@
                             {{ $category->description }}
                         </p>
                         <div class="d-flex justify-content-end">
-                            <a href="{{ route('categories.show',['id' => $category->id]) }}" class="btn btn-primary mr-2">Show more</a>
-                            <a href="{{ route('categories.edit',['id' => $category->id]) }}" class="btn btn-warning mr-2">Edit</a>
-                            <form action="{{ route('categories.destroy', ['id' => $category->id]) }}" method="post">
+                            <a href="{{ route('categories.show',['id' => $category->slug]) }}" class="btn btn-primary mr-2">Show more</a>
+                            <a href="{{ route('categories.edit',['id' => $category->slug]) }}" class="btn btn-warning mr-2">Edit</a>
+                            <form action="{{ route('categories.destroy', ['id' => $category->slug]) }}" method="post">
                                 <input type="hidden" name="_method" value="DELETE">
                                 @csrf
                                 <button class="btn btn-danger">Delete</button>
