@@ -11,11 +11,19 @@ use Illuminate\View\View;
 class ProductsController extends Controller
 {
     /**
+     * @param Request $request
+     * @param Product $product
      * @return View
      */
-    public function index(): View
+    public function index(Request $request, Product $product): View
     {
-        return view('products.index', ['products' => Product::all()]);
+        return view('products.index', [
+            'products' => $product->getAll($request),
+            'params' => [
+                'search' => $request->search
+            ]
+
+        ]);
     }
 
     /**

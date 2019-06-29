@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class Product extends Model
 {
+    protected $perPage = 5;
+
     protected $fillable = [
         "name",
         "sku",
@@ -53,7 +56,15 @@ class Product extends Model
         return $this->belongsTo(Category::class)->without('products');
     }
 
-//    protected $guarded = [
-//
-//    ];
+    public function getAll(Request $request){
+
+        $query = $this->query();
+
+
+        if(isset($request->search)){
+            $query->where('name','like',"%$request->search%");
+        }
+
+        return $query->paginate();
+    }
 }
