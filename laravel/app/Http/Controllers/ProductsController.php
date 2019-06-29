@@ -22,8 +22,8 @@ class ProductsController extends Controller
             'params' => [
                 'search' => $request->search,
                 'filter' => $request->filter,
-            ]
-
+            ],
+            'routes' => $this->routes,
         ]);
     }
 

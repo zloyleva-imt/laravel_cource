@@ -69,6 +69,6 @@ class Product extends Model
             $query->whereActive((bool)$request->filter);
         }
 
-        return $query->paginate();
+        return collect($query->paginate());
     }
 }

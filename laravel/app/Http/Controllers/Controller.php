@@ -10,4 +10,14 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    public $routes = [];
+
+    public function __construct()
+    {
+        $this->routes = collect([
+            'productsCreate' => route('products.create'),
+            'productsIndex' => route('products.index'),
+        ]);
+    }
 }
