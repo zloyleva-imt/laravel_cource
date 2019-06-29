@@ -20,7 +20,7 @@ $factory->define(Product::class, function (Faker $faker) {
         'price_vip' => $faker->randomFloat(2,0,1000),
         'category_id' => $faker->numberBetween(10,25),
         'stock' => $faker->numberBetween(0,1500),
-        'feature' => $faker->boolean(30),
+        'active' => $faker->boolean(50),
         'views' => $faker->numberBetween(0,1500),
         'sales_count' => $faker->numberBetween(0,1000),
     ];

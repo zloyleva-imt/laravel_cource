@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Search;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class Product extends Model
 {
+    use Search;
+
     protected $perPage = 5;
 
     protected $fillable = [
@@ -29,6 +32,8 @@ class Product extends Model
         'picture',
         'category',
     ];
+
+    protected $searchItems = ['name', 'description'];
 
     protected $casts = [
         'sale' => 'boolean'
@@ -58,11 +63,10 @@ class Product extends Model
 
     public function getAll(Request $request){
 
-        $query = $this->query();
+        $query = $this->searchItems($this->query(),$request);
 
-
-        if(isset($request->search)){
-            $query->where('name','like',"%$request->search%");
+        if(isset($request->filter)){
+            $query->whereActive((bool)$request->filter);
         }
 
         return $query->paginate();

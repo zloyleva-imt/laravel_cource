@@ -20,7 +20,8 @@ class ProductsController extends Controller
         return view('products.index', [
             'products' => $product->getAll($request),
             'params' => [
-                'search' => $request->search
+                'search' => $request->search,
+                'filter' => $request->filter,
             ]
 
         ]);
