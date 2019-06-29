@@ -14,11 +14,8 @@ class CategoriesTableSeeder extends Seeder
     public function run()
     {
         factory(Category::class,5)->create()->map(function ($cat,$i){
-//            dump($cat);
-            factory(Product::class,5)->create()->map(function ($product) use($cat,$i){
-                dump($cat->id);
-                $x = $cat->id;
-                $product->category()->associate($x);
+            factory(Product::class,25)->create()->map(function ($product) use($cat,$i){
+                $product->category()->associate($cat)->save();
             });
         });
     }
