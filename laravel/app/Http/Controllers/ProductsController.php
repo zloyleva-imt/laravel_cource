@@ -78,15 +78,17 @@ class ProductsController extends Controller
     }
 
     /**
+     * @param Request $request
      * @param Product $product
      * @return JsonResponse
      * @throws \Exception
      */
-    public function destroy(Product $product): JsonResponse
+    public function destroy(Request $request, Product $product): JsonResponse
     {
         $product->delete();
         return response()->json([
-            'status' => 'ok'
+            'status' => 'ok',
+            'data' => $product->getAll($request)
         ]);
     }
 }

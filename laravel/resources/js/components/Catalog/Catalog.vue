@@ -16,7 +16,7 @@
             </div>
 
 
-            <div class="col-6 my-2" v-for="product in products.data">
+            <div class="col-6 my-2" v-for="product in productsData.data">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">{{ product.name }}</h5>
@@ -38,6 +38,7 @@
         <div class="row">
             <div class="col-12">
                 <!--{{ $products->appends($params)->links() }}-->
+                <b-pagination-nav :link-gen="linkGen" :number-of-pages="productsData.last_page" use-router></b-pagination-nav>
             </div>
         </div>
 
@@ -58,14 +59,29 @@
                 require: true
             }
         },
+        data(){
+            return {
+                productsData:{
+                    data:[],
+                    last_page:1,
+                }
+            }
+        },
         methods:{
             deleteHandler(id){
                 console.log(id);
                 axios.delete(`${this.routes.productsIndex}/${id}`)
                     .then(res => {
-                        console.log(res)
+                        console.log(res);
+                        this.productsData = res.data.data;
                     })
+            },
+            linkGen(pageNum) {
+                return pageNum === 1 ? '?' : `?page=${pageNum}`
             }
+        },
+        mounted(){
+            this.productsData = this.products
         }
     }
 </script>
