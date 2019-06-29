@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -78,12 +79,14 @@ class ProductsController extends Controller
 
     /**
      * @param Product $product
-     * @return RedirectResponse
+     * @return JsonResponse
      * @throws \Exception
      */
-    public function destroy(Product $product): RedirectResponse
+    public function destroy(Product $product): JsonResponse
     {
         $product->delete();
-        return redirect()->route('products.index');
+        return response()->json([
+            'status' => 'ok'
+        ]);
     }
 }

@@ -24,14 +24,9 @@
                             {{ product.description }}
                         </p>
                         <div class="d-flex justify-content-end">
-                            <!--<a href="{{ route('products.show',['id' => $product->id]) }}" class="btn btn-primary mr-2">Show more</a>-->
                             <a :href="`${routes.productsIndex}/${product.id}`" class="btn btn-primary mr-2">Show more</a>
-                            <!--<a href="{{ route('products.edit',['id' => $product->id]) }}" class="btn btn-warning mr-2">Edit</a>-->
-                            <!--<form action="{{ route('products.destroy', ['id' => $product->id]) }}" method="post">-->
-                                <!--<input type="hidden" name="_method" value="DELETE">-->
-                                <!--@csrf-->
-                                <!--<button class="btn btn-danger">Delete</button>-->
-                            <!--</form>-->
+                            <a :href="`${routes.productsIndex}/${product.id}/edit`" class="btn btn-warning mr-2">Edit</a>
+                            <button class="btn btn-danger" @click="deleteHandler(product.id)">Delete</button>
                         </div>
                     </div>
                 </div>
@@ -61,6 +56,15 @@
             products:{
                 type: Object,
                 require: true
+            }
+        },
+        methods:{
+            deleteHandler(id){
+                console.log(id);
+                axios.delete(`${this.routes.productsIndex}/${id}`)
+                    .then(res => {
+                        console.log(res)
+                    })
             }
         }
     }

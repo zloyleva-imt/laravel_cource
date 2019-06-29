@@ -1766,11 +1766,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Catalog",
   props: {
@@ -1781,6 +1776,14 @@ __webpack_require__.r(__webpack_exports__);
     products: {
       type: Object,
       require: true
+    }
+  },
+  methods: {
+    deleteHandler: function deleteHandler(id) {
+      console.log(id);
+      axios["delete"]("".concat(this.routes.productsIndex, "/").concat(id)).then(function (res) {
+        console.log(res);
+      });
     }
   }
 });
@@ -37098,6 +37101,31 @@ var render = function() {
                       }
                     },
                     [_vm._v("Show more")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-warning mr-2",
+                      attrs: {
+                        href:
+                          _vm.routes.productsIndex + "/" + product.id + "/edit"
+                      }
+                    },
+                    [_vm._v("Edit")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger",
+                      on: {
+                        click: function($event) {
+                          return _vm.deleteHandler(product.id)
+                        }
+                      }
+                    },
+                    [_vm._v("Delete")]
                   )
                 ])
               ])
