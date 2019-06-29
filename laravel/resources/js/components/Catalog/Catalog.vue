@@ -26,7 +26,7 @@
                         <div class="d-flex justify-content-end">
                             <a :href="`${routes.productsIndex}/${product.id}`" class="btn btn-primary mr-2">Show more</a>
                             <a :href="`${routes.productsIndex}/${product.id}/edit`" class="btn btn-warning mr-2">Edit</a>
-                            <button class="btn btn-danger" @click="deleteHandler(product.id)">Delete</button>
+                            <button class="btn btn-danger" @click="deleteHandler(product.id)" :disabled="blockDeleteButton">Delete</button>
                         </div>
                     </div>
                 </div>
@@ -64,16 +64,18 @@
                 productsData:{
                     data:[],
                     last_page:1,
-                }
+                },
+                blockDeleteButton:false,
             }
         },
         methods:{
             deleteHandler(id){
-                console.log(id);
+                this.blockDeleteButton = true;
                 axios.delete(`${this.routes.productsIndex}/${id}`)
                     .then(res => {
                         console.log(res);
                         this.productsData = res.data.data;
+                        this.blockDeleteButton = false;
                     })
             },
             linkGen(pageNum) {

@@ -1784,17 +1784,19 @@ __webpack_require__.r(__webpack_exports__);
       productsData: {
         data: [],
         last_page: 1
-      }
+      },
+      blockDeleteButton: false
     };
   },
   methods: {
     deleteHandler: function deleteHandler(id) {
       var _this = this;
 
-      console.log(id);
+      this.blockDeleteButton = true;
       axios["delete"]("".concat(this.routes.productsIndex, "/").concat(id)).then(function (res) {
         console.log(res);
         _this.productsData = res.data.data;
+        _this.blockDeleteButton = false;
       });
     },
     linkGen: function linkGen(pageNum) {
@@ -65867,6 +65869,7 @@ var render = function() {
                     "button",
                     {
                       staticClass: "btn btn-danger",
+                      attrs: { disabled: _vm.blockDeleteButton },
                       on: {
                         click: function($event) {
                           return _vm.deleteHandler(product.id)
