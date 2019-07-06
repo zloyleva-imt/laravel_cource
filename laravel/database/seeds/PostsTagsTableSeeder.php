@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Models\Post;
 use App\Models\Tag;
+use Faker\Generator as Faker;
 
 class PostsTagsTableSeeder extends Seeder
 {
@@ -11,13 +12,17 @@ class PostsTagsTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run(Post $posts, Tag $tags)
+    public function run(Post $posts, Tag $tags, Faker $faker)
     {
-        $posts->all();
-        $tags->all();
+        $t = $tags->all();
 
-        foreach ($posts->all() as $post){
-            $post->tags()->attach($tags->all()->random());
-        }
+        $posts->all()->map(function ($post) use($faker,$t){
+            for($i=0; $i < $faker->numberBetween(1,$t->count()); $i++)
+            try{
+                $post->tags()->attach($t->random());
+            }catch(\Illuminate\Database\QueryException $exception){
+                echo "error insert";
+            }
+        });
     }
 }

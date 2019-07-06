@@ -1907,7 +1907,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "TagsBadgeList"
+  name: "TagsBadgeList",
+  props: {
+    tags: {
+      type: Array,
+      require: true
+    }
+  }
 });
 
 /***/ }),
@@ -66206,20 +66212,23 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "div",
+    _vm._l(_vm.tags, function(tag) {
+      return _c(
+        "a",
+        {
+          key: tag.id,
+          staticClass: "badge badge-secondary mx-1",
+          attrs: { href: "#" }
+        },
+        [_vm._v(_vm._s(tag.name))]
+      )
+    }),
+    0
+  )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("a", { staticClass: "badge badge-secondary", attrs: { href: "#" } }, [
-        _vm._v("Secondary")
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
